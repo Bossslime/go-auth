@@ -206,6 +206,9 @@ func (p Oauth2Handler) AuthHandler(w http.ResponseWriter, r *http.Request) {
 		rest.SendErrorJSON(w, r, p.L, http.StatusInternalServerError, err, "failed to make claim's id")
 		return
 	}
+
+	u.SetStrAttr("access_token", tok.AccessToken)
+
 	claims := token.Claims{
 		User: &u,
 		StandardClaims: jwt.StandardClaims{
